@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>mesto</title>
+</head>
+<body class="body">
+    <!--блок page-->
+    <div class="page">
+        <!--ШАПКА-->
+       <header class="header">
+           <!--ЛОГОТИП -->
+           <img class="header__logo" src="./images/header/Vector.svg" alt="логотип сервиса">
+       </header>
+       <!--ПРОФИЛЬ-->
+       <section class="profile">
+           <!--АВАТАР -->
+           <img class="profile__img" src="./images/profile/image.jpg" alt="автар пользователя">
+           <div class="profile__img-hover"></div>
+           <!--ИНФОРМАЦИЯ О ПРОФИЛЕ-->
+           <div class="profile__info">
+               <h1 class="profile__name">Жак-Ив Кусто</h1>
+               <button class="profile__edit-btn" type="button"></button>
+               <p class="profile__about">Исследователь океана</p>
+           </div>
+           <!--КНОПКА ДОБАВИТЬ-->
+           <button class="profile__add-btn" type="button"></button>
+       </section>
+       <!--ЭЛЕМЕНТЫ-->
+       <main class="elements">
+           <!--сюда JS вставляет карточки  -->
+       </main>
+       <!--ФУТЕР-->
+       <footer class="footer">
+           <p class="footer__copyright">&copy; 2020 Руслан Тихомиров</p>
+       </footer>
+       <!--POPUP редактирования профиля-->
+       <section class="popup">
+            <form class="popup__container popup__container-profile" id="profile-form" novalidate>
+                <button class="popup__icon-close" type="button"></button>
+                <h3 class="popup__title popup__title_form">Редактировать профиль</h3>
+                <input class="popup__input" id="profile-input-name" name="name" type="text" placeholder="Имя" minlength="2" maxlength="40" pattern="^[А-Яа-яЁёA-Za-z\s-]+$" required>
+                <span class="popup__error" id="profile-input-name-error"></span>
+                <input class="popup__input" id="profile-input-about" name="job" type="text" placeholder="О себе" minlength="2" maxlength="200" required>
+                <span class="popup__error" id="profile-input-about-error"></span>
+                <button class="popup__button popup__button_form" id="profile-save-button" type="submit" aria-label="Сохранить">Сохранить</button>
+            </form>
+        </section>
+        <!--POPUP добавления карточки-->
+       <section class="popup popup_card">
+        <form class="popup__container" id="card-form" novalidate>
+            <button class="popup__icon-close" id="close-add-popap" type="button"></button>
+            <h3 class="popup__title popup__title_form">Новое место</h3>
+            <input class="popup__input" id="card-name-input" name="name" type="text" placeholder="Название" minlength="1" maxlength="30" required>
+            <span class="popup__error" id="card-name-input-error"></span>
+            <input class="popup__input" id="card-url-input" name="link" type="url" placeholder="Ссылка на картинку"  required>
+            <span class="popup__error" id="card-url-input-error"></span>
+            <button class="popup__button popup__button_form" id="card-add-button" type="submit" aria-label="Создать">Создать</button>
+        </form>
+        </section>
+         <!--POPUP с картинкой-->
+        <section class="popup popup_image">
+           <div class="popup__image-container">
+                <button class="popup__icon-close popup__icon-close_image" id="close-img-popup" type="button"></button>
+                <img class="popup__image" src="#" alt="изображение карточки">
+                <p class="popup__img-text"></p>
+            </div>
+        </section>
+         <!--POPUP удаления-->
+        <section class="popup popup_delete">
+            <form class="popup__delete-container">
+                <h3 class="popup__title popup__title_delete">Вы уверены?</h3>
+                <button class="popup__icon-close"  type="button"></button>
+                <button class="popup__button popup__button_delete" type="submit" aria-label="Да">Да</button>
+            </form>
+        </section>
+        <!--POPUP редактирования аватара-->
+       <section class="popup popup__avatar">
+        <form class="popup__container popup__avatar-container" id="avatar-form" novalidate>
+            <button class="popup__icon-close" type="button"></button>
+            <h3 class="popup__title popup__title_form">Обновить аватар</h3>
+            <input class="popup__input" id="avatar-url-input" name="avatar" type="url" placeholder="Введите url" required>
+            <span class="popup__error" id="avatar-url-input-error"></span>
+            <button class="popup__button popup__button_form" type="submit" aria-label="Сохранить">Сохранить</button>
+        </form>
+    </section>      
+    </div>
+<!--ШАБЛОН ДЛЯ ДОБАВЛЕНИЯ КАРТОЧКИ-->
+<template id="template">
+    <div class="elements__item" data-owner="">
+        <img class="elements__img" src="#" alt="изображение города">
+        <button class="elements__trash" type="button"></button>
+        <h3 class="elements__title"></h3>
+        <button class="elements__like" type="button"></button>
+        <p class="elements__like-counter">0</p>
+     </div>    
+</template>    
+</body>
+</html>

@@ -28,4 +28,4 @@
  
 ### Ссылка на проект 
  
-Проект размещен на GithubPages и доступен по [ссылке](https://ruslan43g.github.io/mesto/index.html "ссылке") 
+Проект размещен на GithubPages и доступен по [ссылке](https://ruslan43g.github.io/mesto-native/index.html "ссылке") 

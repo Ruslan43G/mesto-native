@@ -1,6 +1,4 @@
 import React from 'react';
-import PopupWithForm from './PopupWithForm.js';
-import ImagePopup from './ImagePopup.js';
 import api from '../utils/Api.js';
 import Card from './Card.js';
 //основной компонент. Содержит секцию с профилем и карточками.
@@ -14,16 +12,15 @@ export default function Main (props) {
     React.useEffect(() => {
         //ждём ответа от 2х запросов api (инфа о пользователе и массив карточек)
         Promise.all([api.getUserInfo(), api.getInitialCards()])
-            .then((value) => {
-                setUserName(value[0].name);                 //устанавливаем имя
-                setUserDescription(value[0].about);         //устанавливаем описание
-                setUserAvatar(value[0].avatar);             //устанавливаем аватар
-                setCards(value[1].map(item => (             //отрисовываем карточки
-                    <Card key={item._id} card={item} onClick={props.onCardClick} />
-                )));
+            .then(([userData, initialCards]) => {
+                setUserName(userData.name);                 //устанавливаем имя
+                setUserDescription(userData.about);         //устанавливаем описание
+                setUserAvatar(userData.avatar);             //устанавливаем аватар
+                setCards([...initialCards]);                //записываем массив карточек в стейт переменную
             })
             .catch(err => console.log(err));               //вывод в консоль на случай ошибки
-    }, [props.onCardClick])
+            
+    }, [])
     //Отрисовка компонента
     return (
         <> 
@@ -38,34 +35,8 @@ export default function Main (props) {
                 <button className="profile__add-btn" onClick={props.onAddPlace} type="button"></button>
             </section>
             <main className="elements">
-                {cards}
+                {cards.map(item => <Card key={item._id} card={item} onClick={props.onCardClick} />)}
             </main>
-            <PopupWithForm name='popup_profile' handler={props.onEditProfile} title='Редактировать профиль' children={
-                    <>
-                        <input className="popup__input" id="profile-input-name" name="name" type="text" placeholder="Имя" minLength="2" maxLength="40" pattern="^[А-Яа-яЁёA-Za-z\s-]+$" required />
-                        <span className="popup__error" id="profile-input-name-error"></span>
-                        <input className="popup__input" id="profile-input-about" name="job" type="text" placeholder="О себе" minLength="2" maxLength="200" required />
-                        <span className="popup__error" id="profile-input-about-error"></span>
-                    </>
-                    } isOpen={props.profileIsOpenen}
-                    onClose={props.onClose}/>
-            <PopupWithForm name='popup_card' handler={props.onAddPlace} title='Новое место' children={
-                <>
-                    <input className="popup__input" id="card-name-input" name="name" type="text" placeholder="Название" minLength="1" maxLength="30" required />
-                    <span className="popup__error" id="card-name-input-error"></span>
-                    <input className="popup__input" id="card-url-input" name="link" type="url" placeholder="Ссылка на картинку"  required />
-                    <span className="popup__error" id="card-url-input-error"></span>
-                </>
-            } isOpen={props.addCardIsOpen}
-            onClose={props.onClose}/>
-            <PopupWithForm name='popup_avatar' handler={props.onEditAvatar} title='Обновить аватар' children={
-                <>
-                    <input className="popup__input" id="avatar-url-input" name="avatar" type="url" placeholder="Введите url" required />
-                    <span className="popup__error" id="avatar-url-input-error"></span>
-                </>
-            } isOpen={props.avatarIsOpen}
-            onClose={props.onClose}/>
-            <ImagePopup card={props.card} onClose={props.onClose}/>
         </>
     )
 }

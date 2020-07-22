@@ -2,6 +2,8 @@ import React from 'react';
 import Header from './Header.js';
 import Main from './Main.js';
 import Footer from './Footer.js';
+import PopupWithForm from './PopupWithForm.js';
+import ImagePopup from './ImagePopup.js';
 
 function App() {
   // [переменные состояния]
@@ -47,15 +49,36 @@ function App() {
       <Main 
       onEditAvatar={handleEditAvatarClick} 
       onEditProfile={handleEditProfileClick} 
-      onAddPlace={handleAddPlaceClick} 
-      profileIsOpenen={profileIsOpen} 
-      avatarIsOpen={avatarIsOpen} 
-      addCardIsOpen={addCardIsOpen}
-      onClose={closeAllPopups}
-      card={selectedCard}
+      onAddPlace={handleAddPlaceClick}
       onCardClick={handleCardClick}
       />
       <Footer />
+      <PopupWithForm name='popup_profile' handler={handleEditProfileClick} title='Редактировать профиль' children={
+                    <>
+                        <input className="popup__input" id="profile-input-name" name="name" type="text" placeholder="Имя" minLength="2" maxLength="40" pattern="^[А-Яа-яЁёA-Za-z\s-]+$" required />
+                        <span className="popup__error" id="profile-input-name-error"></span>
+                        <input className="popup__input" id="profile-input-about" name="job" type="text" placeholder="О себе" minLength="2" maxLength="200" required />
+                        <span className="popup__error" id="profile-input-about-error"></span>
+                    </>
+                    } isOpen={profileIsOpen}
+                    onClose={closeAllPopups}/>
+      <PopupWithForm name='popup_card' handler={handleAddPlaceClick} title='Новое место' children={
+                <>
+                    <input className="popup__input" id="card-name-input" name="name" type="text" placeholder="Название" minLength="1" maxLength="30" required />
+                    <span className="popup__error" id="card-name-input-error"></span>
+                    <input className="popup__input" id="card-url-input" name="link" type="url" placeholder="Ссылка на картинку"  required />
+                    <span className="popup__error" id="card-url-input-error"></span>
+                </>
+            } isOpen={addCardIsOpen}
+            onClose={closeAllPopups}/>
+      <PopupWithForm name='popup_avatar' handler={handleEditAvatarClick} title='Обновить аватар' children={
+                <>
+                    <input className="popup__input" id="avatar-url-input" name="avatar" type="url" placeholder="Введите url" required />
+                    <span className="popup__error" id="avatar-url-input-error"></span>
+                </>
+            } isOpen={avatarIsOpen}
+            onClose={closeAllPopups}/>
+      <ImagePopup card={selectedCard} onClose={closeAllPopups}/>
     </div> 
   );
 }

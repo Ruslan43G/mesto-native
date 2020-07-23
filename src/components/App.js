@@ -15,11 +15,13 @@ function App() {
     link: '',
     name: ''
   });
+  const [deleteIsOpen, setDeleteIsOpen] = React.useState(false);
   // функция закрытия всех попапов. Переводит переменные состояния в необходимые значения
   function closeAllPopups() {
     setProfileIsOpen(false);
     setAvatarIsOpen(false);
     setAddCardIsOpen(false);
+    setDeleteIsOpen(false);
     setSelectedCard({
       ...selectedCard,
       isOpen: true,
@@ -42,6 +44,9 @@ function App() {
       name: props.name
     });
   }
+  function handleDeleteClick() {
+    setDeleteIsOpen(true);
+  }
   // рендер основной страницы
   return (
     <div className="page">
@@ -51,9 +56,10 @@ function App() {
       onEditProfile={handleEditProfileClick} 
       onAddPlace={handleAddPlaceClick}
       onCardClick={handleCardClick}
+      onDeleteClick={handleDeleteClick}
       />
       <Footer />
-      <PopupWithForm name='popup_profile' handler={handleEditProfileClick} title='Редактировать профиль' children={
+      <PopupWithForm name='popup_profile' buttonText='Сохранить' handler={handleEditProfileClick} title='Редактировать профиль' children={
                     <>
                         <input className="popup__input" id="profile-input-name" name="name" type="text" placeholder="Имя" minLength="2" maxLength="40" pattern="^[А-Яа-яЁёA-Za-z\s-]+$" required />
                         <span className="popup__error" id="profile-input-name-error"></span>
@@ -62,7 +68,7 @@ function App() {
                     </>
                     } isOpen={profileIsOpen}
                     onClose={closeAllPopups}/>
-      <PopupWithForm name='popup_card' handler={handleAddPlaceClick} title='Новое место' children={
+      <PopupWithForm name='popup_card' buttonText='Создать' handler={handleAddPlaceClick} title='Новое место' children={
                 <>
                     <input className="popup__input" id="card-name-input" name="name" type="text" placeholder="Название" minLength="1" maxLength="30" required />
                     <span className="popup__error" id="card-name-input-error"></span>
@@ -71,7 +77,7 @@ function App() {
                 </>
             } isOpen={addCardIsOpen}
             onClose={closeAllPopups}/>
-      <PopupWithForm name='popup_avatar' handler={handleEditAvatarClick} title='Обновить аватар' children={
+      <PopupWithForm name='popup_avatar' buttonText='Сохранить' handler={handleEditAvatarClick} title='Обновить аватар' children={
                 <>
                     <input className="popup__input" id="avatar-url-input" name="avatar" type="url" placeholder="Введите url" required />
                     <span className="popup__error" id="avatar-url-input-error"></span>
@@ -79,6 +85,7 @@ function App() {
             } isOpen={avatarIsOpen}
             onClose={closeAllPopups}/>
       <ImagePopup card={selectedCard} onClose={closeAllPopups}/>
+      <PopupWithForm name='popup_delete' buttonText='Да' title='Вы уверены?' isOpen={deleteIsOpen} onClose={closeAllPopups}/>
     </div> 
   );
 }

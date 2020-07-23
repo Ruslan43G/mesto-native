@@ -7,7 +7,7 @@ export default function PopupWithForm (props) {
                 <button className="popup__icon-close" onClick={props.onClose} type="button"></button>
                 <h3 className="popup__title popup__title_form">{props.title}</h3>
                 {props.children}
-                <button className="popup__button popup__button_form" id="profile-save-button" onClick={props.handler} type="submit" aria-label="Сохранить">Сохранить</button>
+                <button className="popup__button popup__button_form" id="profile-save-button" onClick={props.handler} type="submit" aria-label="Сохранить">{props.buttonText}</button>
             </form>
         </section>
     )

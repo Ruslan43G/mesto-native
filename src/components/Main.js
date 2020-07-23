@@ -35,7 +35,7 @@ export default function Main (props) {
                 <button className="profile__add-btn" onClick={props.onAddPlace} type="button"></button>
             </section>
             <main className="elements">
-                {cards.map(item => <Card key={item._id} card={item} onClick={props.onCardClick} />)}
+                {cards.map(item => <Card key={item._id} card={item} onDeleteClick={props.onDeleteClick} onClick={props.onCardClick} />)}
             </main>
         </>
     )

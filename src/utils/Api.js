@@ -54,7 +54,7 @@ class Api {
             headers: this._headers,
             body: JSON.stringify({
                 name: newUserData.name,
-                about: newUserData.job
+                about: newUserData.about
             })    
             }
         )
@@ -83,31 +83,30 @@ class Api {
         })
     }
 
-    putLike(cardId) {
-        
-        return fetch(`${this._url}/cards/likes/${cardId}`, {
-            method: 'PUT',
-            headers: this._headers
-            })
-            .then((res) => {
-                if (res.ok) {
-                    return res.json();
-                }
-                return Promise.reject(`Ошибка: ${res.status} ${res.statusText}`);
-            });
-    }
-
-    deleteLike(cardId) {
-        return fetch(`${this._url}/cards/likes/${cardId}`, {
-            method: 'DELETE',
-            headers: this._headers
-            })
-            .then((res) => {
-                if (res.ok) {
-                    return res.json();
-                }
-                return Promise.reject(`Ошибка: ${res.status} ${res.statusText}`);
-            });
+    handleLike(cardId, boolean) {
+        if (boolean) {
+            return fetch(`${this._url}/cards/likes/${cardId}`, {
+                method: 'DELETE',
+                headers: this._headers
+                })
+                .then((res) => {
+                    if (res.ok) {
+                        return res.json();
+                    }
+                    return Promise.reject(`Ошибка: ${res.status} ${res.statusText}`);
+                });
+        } else {
+            return fetch(`${this._url}/cards/likes/${cardId}`, {
+                method: 'PUT',
+                headers: this._headers
+                })
+                .then((res) => {
+                    if (res.ok) {
+                        return res.json();
+                    }
+                    return Promise.reject(`Ошибка: ${res.status} ${res.statusText}`);
+                });
+        }
     }
 
     deleteCard(cardId) {
@@ -122,6 +121,8 @@ class Api {
             return Promise.reject(`Ошибка: ${res.status} ${res.statusText}`);
         });
     }
+
+    
 
 }
 

@@ -9,7 +9,7 @@ export default function Card (props) {                                          
     return (
         <div className="elements__item" data-owner="">
             <img className="elements__img" onClick={handleClick} src={props.card.link} alt={props.card.name} />
-            <button className="elements__trash" type="button"></button>
+            <button className="elements__trash" onClick={props.onDeleteClick} type="button"></button>
             <h3 className="elements__title">{props.card.name}</h3>
             <button className="elements__like" type="button"></button>
             <p className="elements__like-counter">{props.card.likes.length}</p>

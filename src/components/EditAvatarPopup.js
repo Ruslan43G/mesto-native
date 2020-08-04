@@ -1,4 +1,5 @@
 import React from 'react';
+import PopupWithForm from './PopupWithForm';
 
 export default function EditAvatarPopup (props) {
     const avatarRef = React.useRef();
@@ -9,14 +10,11 @@ export default function EditAvatarPopup (props) {
     }
 
     return (
-        <section className={props.isOpen ? `popup popup_avatar popup_opened` : `popup popup_avatar`}>
-            <form onSubmit={handleSubmit} className='popup__container' id="profile-form" noValidate>
-                <button className="popup__icon-close" onClick={props.onClose} type="button"></button>
-                <h3 className="popup__title popup__title_form">Обновить аватар</h3>
-                <input ref={avatarRef}  className="popup__input" id="avatar-url-input" name="avatar" type="url" placeholder="Введите url" required />
+        <PopupWithForm name='popup_avatar' buttonText='Сохранить' onSubmit={handleSubmit} title='Обновить аватар' isOpen={props.isOpen} onClose={props.onClose} isLoading={props.isLoading}>
+            <>
+                <input ref={avatarRef} className="popup__input" id="avatar-url-input" name="avatar" type="url" placeholder="Введите url" required />
                 <span className="popup__error" id="avatar-url-input-error"></span>
-                <button className="popup__button popup__button_form" id="profile-save-button" type="submit" aria-label="Сохранить">Сохранить</button>
-            </form>
-        </section>
+            </>
+        </PopupWithForm>  
     )
 }

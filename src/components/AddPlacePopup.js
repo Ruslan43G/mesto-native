@@ -15,6 +15,7 @@ export default function AddPlacePopup (props) {
     function handleOnSubmit(evt) {
         evt.preventDefault();
         props.onSubmit(newCard);
+        setNewCard({name: '', link: ''});
     }
 
     return (
